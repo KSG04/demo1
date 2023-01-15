@@ -1,6 +1,6 @@
 <%@ page import="user.UserDAO" %>
 <%@ page import="user.UserDTO" %>
-
+<%@ page import="java.util.List" %>
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -22,5 +22,13 @@
     </form>
 </fieldset>
 
+<fieldset>
+    <legend>id 값으로 정보 찾기</legend>
+    <form method="post" action="search.jsp">
+        조회할 id 입력 : <input type="text" name="userID"> <br>
+        <input type="submit" value="조회">
+
+    </form>
+</fieldset>
 </body>
 </html>

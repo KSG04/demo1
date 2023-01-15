@@ -1,17 +1,17 @@
 package user;
 
 public class UserDTO {
-    private int id;
+    private Integer  id;
     private String name;
     private String year;
     private String ss;
     private String phone_number;
 
-    public int getId() {
+    public Integer  getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer  id) {
         this.id = id;
     }
 
@@ -54,12 +54,16 @@ public class UserDTO {
         this.phone_number = phone_number;
     }
 
-    public UserDTO(int id, String name, String year, String ss, String phone_number) {
+    public UserDTO(Integer  id, String name, String year, String ss, String phone_number) {
         this.id = id;
         this.name = name;
         this.year = year;
         this.ss = ss;
         this.phone_number = phone_number;
+    }
+
+    public UserDTO(Integer  id) {
+        this.id = id;
     }
 
     @Override

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     public PreparedStatement pstmt;
@@ -36,4 +38,36 @@ public class UserDAO {
         return insertCount;
     }
 
+    public List<UserDTO> searchID(UserDTO DTO){
+        List <UserDTO> list = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        String sql = "Select id,name1,year1,ss,phone_number from user where id = ?";
+
+        try(Connection conn = DriverManager.getConnection(url,user,password)) {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, DTO.getId());
+            try(ResultSet rs = ps.executeQuery()) {
+                while (rs.next()){
+                    Integer   userID = rs.getInt(1);
+                    String userName = rs.getString(2);
+                    String userYear = rs.getString(3);
+                    String ss = rs.getString(4);
+                    String phone_number = rs.getString(5);
+
+                    UserDTO userDTO = new UserDTO(userID,userName,userYear,ss,phone_number);
+                    list.add(userDTO);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
