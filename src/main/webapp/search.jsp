@@ -31,7 +31,11 @@
         script.close();
         return;
     }else {
-        PrintWriter script = response.getWriter();
+
+        %>
+    <div>
+<%
+
         List<UserDTO> list = userDAO.searchID(userDTO);
         for (int i = 0; i < list.size(); i++){
 %>
@@ -57,5 +61,16 @@
 </table>
 <%
     }
-    }
+
 %>
+            </div>
+<%
+    }
+
+%>
+<br>
+<form method="post" action="update.jsp">
+이름 변경 : <input type="text" name="userName"> <br>
+번호 변경 : <input type="text" name="number"> <br>
+<input type="submit" value="변경">
+</form>

@@ -66,6 +66,16 @@ public class UserDTO {
         this.id = id;
     }
 
+
+    public UserDTO(String name) {
+        this.name = name;
+    }
+
+    public UserDTO(String name, String phone_number) {
+        this.name = name;
+        this.phone_number = phone_number;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +

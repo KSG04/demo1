@@ -15,15 +15,17 @@ public class UserDAO {
     private static String user = "root";
     private static String password = "Gosemvhs1!";
 
-
-    public int addUser(UserDTO DTO){
-        int insertCount = 0;
-
+    public UserDAO(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public int addUser(UserDTO DTO){
+        int insertCount = 0;
+
         String sql = "Insert into user(name1,year1,ss,phone_number) values(?,?,?,?)";
         try(Connection conn = DriverManager.getConnection(url,user,password);
             PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -46,7 +48,7 @@ public class UserDAO {
         }catch (Exception e){
             e.printStackTrace();
         }
-        String sql = "Select id,name1,year1,ss,phone_number from user where id = ?";
+        String sql = "Select id,name1,year1,ss,phone_number from user where id = ? ";
 
         try(Connection conn = DriverManager.getConnection(url,user,password)) {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -70,4 +72,28 @@ public class UserDAO {
         }
         return list;
     }
+
+    public int modify(UserDTO DTO) {
+        int insertCount = 0;
+
+        String sql = "update user set name1 = ? , phone_number = ? where id = ?";
+        try(Connection conn = DriverManager.getConnection(url,user,password)) {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            if (ps.setString(1,DTO.getName()) != null) {
+                ps.setString(1,DTO.getName());
+            }
+            else if (ps.setString(2,DTO.getPhone_number()) != null){
+                ps.setString(2,DTO.getPhone_number());
+            }
+            else {
+                ps.setString(1, DTO.getName());
+                ps.setString(2, DTO.getPhone_number());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return insertCount;
+    }
+
 }

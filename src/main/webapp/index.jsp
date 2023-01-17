@@ -26,9 +26,11 @@
     <legend>id 값으로 정보 찾기</legend>
     <form method="post" action="search.jsp">
         조회할 id 입력 : <input type="text" name="userID"> <br>
-        <input type="submit" value="조회">
-
+        <input type="submit" value="조회"> <br>
     </form>
+
 </fieldset>
+
+
 </body>
 </html>
