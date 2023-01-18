@@ -76,19 +76,13 @@ public class UserDAO {
     public int modify(UserDTO DTO) {
         int insertCount = 0;
 
-        String sql = "update user set name1 = ? , phone_number = ? where id = ?";
-        try(Connection conn = DriverManager.getConnection(url,user,password)) {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            if (ps.setString(1,DTO.getName()) != null) {
-                ps.setString(1,DTO.getName());
-            }
-            else if (ps.setString(2,DTO.getPhone_number()) != null){
-                ps.setString(2,DTO.getPhone_number());
-            }
-            else {
-                ps.setString(1, DTO.getName());
-                ps.setString(2, DTO.getPhone_number());
-            }
+        String sql = "update user set phone_number = ? where id = ?";
+        try(Connection conn = DriverManager.getConnection(url,user,password);
+        PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                ps.setString(1, DTO.getPhone_number());
+                ps.setInt(2,DTO.getId());
+                insertCount= ps.executeUpdate();
 
         }catch (Exception e){
             e.printStackTrace();
@@ -96,4 +90,24 @@ public class UserDAO {
         return insertCount;
     }
 
+    public int delete(UserDTO DTO) {
+        int insertCount = 0;
+
+        String sql = "delete from user where id = ? order by id desc";
+        String sql2 = "alter table user AUTO_INCREMENT = 1;set @cnt = 0; update user set id = @cnt:=@cnt+1; alter table user AUTO_INCREMENT = @cnt";
+
+        try(Connection conn = DriverManager.getConnection(url,user,password);
+        PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1,DTO.getId());
+            insertCount = ps.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try(Connection conn = DriverManager.getConnection(url,user,password);
+        PreparedStatement ps = conn.prepareStatement(sql2)) {
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return insertCount;
+    }
 }

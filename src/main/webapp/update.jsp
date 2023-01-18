@@ -9,72 +9,35 @@
 <%@ page import="user.UserDTO" %>
 <%@ page import="user.UserDAO" %>
 <%@ page import="java.io.PrintWriter" %>
-
 <%
   request.setCharacterEncoding("UTF-8");
-
-  String userName = null;
+  Integer userID = null;
   String number = null;
-
-  if (request.getParameter("userName") != null) {
-    userName = (String) request.getParameter("userName");
-    UserDTO userDTO = new UserDTO(userName);
-    UserDAO userDAO = new UserDAO();
-    int insertCount = userDAO.modify(userDTO);
-
-    if (insertCount >= 1){
-      PrintWriter script = response.getWriter();
-      script.println("<script>");
-      script.println("alert('변경 성공')");
-      script.println("history.back()'");
-      script.println("</script>");
-      script.close();
-    }
-
-  }
-  if (request.getParameter("number") != null) {
+    userID = Integer.parseInt(request.getParameter("userID"));
     number = (String) request.getParameter("number");
-    UserDTO userDTO = new UserDTO(userName,number);
+    UserDTO userDTO = new UserDTO(userID,number);
     UserDAO userDAO = new UserDAO();
     int insertCount = userDAO.modify(userDTO);
 
-    if (insertCount >= 1){
+
+    if (insertCount == 1){
       PrintWriter script = response.getWriter();
       script.println("<script>");
       script.println("alert('변경 성공')");
-      script.println("history.back()'");
+      script.println("history.back(-1)");
+      script.println("</script>");
+      script.close();
+
+  }else {
+      PrintWriter script = response.getWriter();
+      script.println("<script>");
+      script.println("alert('입력 안한 사항이 있습니다.')");
+      script.println("history.back(-1)");
       script.println("</script>");
       script.close();
     }
 
-  }
-  if (request.getParameter("userName") != null && request.getParameter(number) != null) {
-    userName = (String) request.getParameter("userName");
-    number = (String) request.getParameter("number");
-    UserDTO userDTO = new UserDTO(userName,number);
-    UserDAO userDAO = new UserDAO();
-    int insertCount = userDAO.modify(userDTO);
 
-    if (insertCount >= 1){
-      PrintWriter script = response.getWriter();
-      script.println("<script>");
-      script.println("alert('변경 성공')");
-      script.println("history.back()'");
-      script.println("</script>");
-      script.close();
-    }
-
-  }
-
-  if(userName.equals("") && number.equals("")){
-    PrintWriter script = response.getWriter();
-    script.println("<script>");
-    script.println("alert('입력 안된 항목이 있습니다.')");
-    script.println("history.back()");
-    script.println("</script>");
-    script.close();
-    return;
-  }
 
 
 

@@ -35,6 +35,11 @@ public class UserDTO {
         return ss;
     }
 
+    public UserDTO(Integer id, String phone_number) {
+        this.id = id;
+        this.phone_number = phone_number;
+    }
+
     public void setSs(String ss) {
         this.ss = ss;
     }
@@ -72,6 +77,12 @@ public class UserDTO {
     }
 
     public UserDTO(String name, String phone_number) {
+        this.name = name;
+        this.phone_number = phone_number;
+    }
+
+    public UserDTO(Integer id, String name, String phone_number) {
+        this.id = id;
         this.name = name;
         this.phone_number = phone_number;
     }

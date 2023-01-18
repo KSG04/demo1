@@ -14,10 +14,10 @@
 <%
     request.setCharacterEncoding("UTF-8");
 
-    Integer userID = null;
+     Integer userID = null;
 
     if (request.getParameter("userID") != null) {
-        userID =Integer.parseInt(request.getParameter("userID"));
+       userID =Integer.parseInt(request.getParameter("userID"));
     }
     UserDTO userDTO = new UserDTO(userID);
     UserDAO userDAO = new UserDAO();
@@ -69,8 +69,20 @@
 
 %>
 <br>
+<fieldset>
+    <legend>수정하기</legend>
 <form method="post" action="update.jsp">
-이름 변경 : <input type="text" name="userName"> <br>
+변경 ID  : <%=userID%> <input type="hidden" name="userID" value="<%=userID%>"> <br>
 번호 변경 : <input type="text" name="number"> <br>
-<input type="submit" value="변경">
+    <input type="submit" value="변경">
 </form>
+</fieldset>
+
+<fieldset>
+    <legend>삭제하기</legend>
+    <form method="post" action="delet.jsp">
+        삭제 ID : <%=userID%> <br>
+        <input type="hidden" name="userID" value="<%=userID%>">
+        <input type="submit" value="삭제" name="1">
+    </form>
+</fieldset>
